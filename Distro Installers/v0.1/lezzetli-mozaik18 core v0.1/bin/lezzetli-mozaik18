@@ -1,0 +1,62 @@
+#!/bin/bash#!/bin/bash
+
+BASE="/opt/lezzetli-mozaik18"
+
+case "$1" in
+
+    install)
+        # ON2 direct mode
+        if [ "$2" = "-on2" ]; then
+
+            CUSTOM_FILE="/opt/lezzetli-mozaik18/on2.txt"
+
+            if [ -f "$CUSTOM_FILE" ]; then
+                echo "Running custom install (on2)..."
+                chmod +X /opt/lezzetli-mozaik18/on2.txt
+                bash "$CUSTOM_FILE"
+            else
+                echo "Error: on2 custom install script not found."
+                exit 1
+            fi
+
+        else
+            # Normal GUI flow
+            if [ -f "$BASE/lezzetli18 Distribution Installer.sh" ]; then
+                bash "$BASE/lezzetli18 Distribution Installer.sh"
+                chmod +X "$BASE/lezzetli18 Distribution Installer.sh"
+            else
+                echo "Error: GUI not found."
+                exit 1
+            fi
+
+            if [ -f "$BASE/lmpt.sh" ]; then
+                bash "$BASE/lmpt.sh"
+            else
+                echo "Error: lmpt.sh not found."
+                exit 1
+            fi
+        fi
+        ;;
+        
+    lmpt)
+        chmod +X "/opt/lezzetli-mozaik18/lmpt.sh"
+        sudo bash "/opt/lezzetli-mozaik18/lmpt.sh"
+        ;;
+
+    mount)
+        chmod +X "/opt/lezzetli-mozaik18/mount.sh"
+        sudo bash "/opt/lezzetli-mozaik18/mount.sh"
+        ;;
+
+    -h|--help)
+        echo "Usage:"
+        echo "  lezzetli-mozaik18 install"
+        echo "  lezzetli-mozaik18 install -on2"
+        echo "  lezzetli-mozaik18 mount"
+        ;;
+
+    *)
+        echo "Unknown command. Use -h for help."
+        exit 1
+        ;;
+esac
