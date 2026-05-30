@@ -6,4 +6,6 @@
 
 - That's the entire thing about this account. And please keep in mind that I do these for fun, I am not planning to deploy professional services... If you are interested, feel free to take looks, please!
 
+- To let you know a bit about here, the packages that let you easily setup my distros are here, mostly. Such as distro installers and codespaces, virtual environments and simple codecs... well, that is a lot for me. I will do it eventually.
+
 :)
