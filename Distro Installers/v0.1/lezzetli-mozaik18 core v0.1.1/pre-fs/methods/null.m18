@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo null
+exit 0

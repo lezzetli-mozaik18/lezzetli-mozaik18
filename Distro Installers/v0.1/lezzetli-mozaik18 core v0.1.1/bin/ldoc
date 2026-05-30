@@ -1,0 +1,29 @@
+#!/bin/bash
+
+BASE="/opt/lezzetli-mozaik18"
+
+echo "lezzetli18 system doctor"
+echo "------------------------"
+
+check() {
+    if [ -e "$1" ]; then
+        echo "OK  -> $2"
+    else
+        echo "FAIL-> $2"
+    fi
+}
+
+check "$BASE" "Core directory"
+check "$BASE/lpkg.sh" "GUI installer (lpkg)"
+check "$BASE/lmpt.sh" "Engine (lmpt)"
+check "$BASE/mount.sh" "Mount system"
+check "$BASE/mounted" "Package storage"
+check "/usr/local/bin/lezzetli-mozaik18" "CLI entry"
+
+echo
+echo "Mounted packages:"
+ls "$BASE/mounted" 2>/dev/null || echo "none"
+
+echo
+echo "System check complete."
+exit 0

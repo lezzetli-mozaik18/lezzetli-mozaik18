@@ -1,0 +1,104 @@
+#!/bin/bash
+
+BASE="/opt/lezzetli-mozaik18"
+
+cmd="$1"
+sub="$2"
+arg="$3"
+
+case "$cmd" in
+
+lpkg)
+    sudo bash "$BASE/lpkg.sh"
+    ;;
+
+lmpt)
+
+    echo "Be careful please..."
+
+    case "$sub" in
+
+        -bash18)
+            file="$arg"
+            sudo nano "$BASE/$file.bash18"
+            ;;
+
+        -m18)
+            file="$arg"
+            sudo nano "$BASE/$file.m18"
+            ;;
+
+        *)
+            sudo bash "$BASE/lmpt.sh"
+            ;;
+    esac
+    ;;
+
+pkg18)
+
+    case "$sub" in
+
+        -get)
+            pkg="$arg"
+
+            if [ -z "$pkg" ]; then
+                echo "Usage: pkg18 -get <name>"
+                exit 1
+            fi
+
+            if [ -d "$BASE/mounted/$pkg" ]; then
+                cp -r "$BASE/mounted/$pkg" "$HOME/"
+                echo "Package moved to $HOME/$pkg"
+            else
+                echo "Package not found."
+                exit 1
+            fi
+            ;;
+
+        -del)
+            pkg="$arg"
+
+            if [ -z "$pkg" ]; then
+                echo "Usage: pkg18 -del <name>"
+                exit 1
+            fi
+
+            sudo rm -rf "$BASE/mounted/$pkg"
+            echo "Deleted package: $pkg"
+            ;;
+
+        -ls)
+            ls "$BASE/mounted" 2>/dev/null || echo "No packages found."
+            exit 0
+            ;;
+    esac
+    ;;
+
+quickmount)
+    read -p "Package path -> " path
+    sudo bash "$BASE/mount.sh" "$path"
+    ;;
+
+more)
+    echo "lezzetli-mozaik18 CLI"
+    echo
+    echo "lconf - configure system"
+    echo "ldoc  - system doctor"
+    echo
+    ;;
+
+help|*)
+    echo "lezzetli-mozaik18 CLI"
+    echo
+    echo "Commands:"
+    echo "  lpkg"
+    echo "  lmpt [-bash18 name | -m18 name]"
+    echo "  pkg18 -get <name>"
+    echo "  pkg18 -del <name>"
+    echo "  pkg18 -ls"
+    echo "  quickmount"
+    echo "  help"
+    echo
+    echo 'Use "lezzetli-mozaik18 more" to view extra commands.'
+    ;;
+esac

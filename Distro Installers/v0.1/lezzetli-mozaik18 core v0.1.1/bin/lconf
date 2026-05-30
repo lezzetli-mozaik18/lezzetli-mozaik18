@@ -1,0 +1,25 @@
+#!/bin/bash
+
+BASE="/opt/lezzetli-mozaik18"
+
+echo "lezzetli18 configuration tool"
+echo
+
+echo "Available config files:"
+ls "$BASE"/*.bash18 2>/dev/null
+
+echo
+read -p "Enter file name (without path, no extension) -> " file
+
+TARGET="$BASE/$file.bash18"
+
+if [ ! -f "$TARGET" ]; then
+    echo "File not found: $TARGET"
+    exit 1
+fi
+
+echo "Opening: $TARGET"
+sudo nano "$TARGET"
+
+echo "Done."
+exit 0
