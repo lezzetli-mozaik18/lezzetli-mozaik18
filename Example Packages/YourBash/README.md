@@ -7,3 +7,5 @@
 - The app may need admin privileges on your device. If you have any doubts, you can always check the source code of the app for predictability.
 
 - Enjoy using YourBash! A desktop app is included for Debian and Ubuntu releases.
+
+- Will not get updates as it is a static app.
