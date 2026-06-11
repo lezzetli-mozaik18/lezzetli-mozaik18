@@ -9,3 +9,17 @@
 - Enjoy using YourBash! A desktop app is included for Debian and Ubuntu releases.
 
 - Will not get updates as it is a static app.
+
+## HOW TO SET IT UP
+
+- Save all the files as with their original names.
+
+- Make all of the files executable with ´chmod +x´.
+
+- Drag & drop desktop.sh to /opt.
+
+- Run ´mv "yourbash.desktop" "~/.local/share/applications/"´.
+
+- Drag & drop yourbash to /usr/local/bin.
+
+- Done! Enjoy.
