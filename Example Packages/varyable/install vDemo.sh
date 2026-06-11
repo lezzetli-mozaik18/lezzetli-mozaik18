@@ -32,8 +32,8 @@ fi
 
 -set)
 if [ -f "/opt/varyable/$2" ]; then
-read -p "set $2 to: " set
-echo "$set" | sudo tee "/opt/varyable/$2" > /dev/null
+read -p "set $2 to: " sval
+echo "$sval" | sudo tee "/opt/varyable/$2" > /dev/null
 else
 echo "fatal: not found"
 fi
