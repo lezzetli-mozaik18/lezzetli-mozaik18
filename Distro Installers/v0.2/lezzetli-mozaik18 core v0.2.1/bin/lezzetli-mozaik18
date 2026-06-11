@@ -1,0 +1,149 @@
+#!/bin/bash
+
+BASE="/opt/lezzetli-mozaik18"
+
+cmd="$1"
+sub="$2"
+arg="$3"
+
+case "$cmd" in
+
+# ---------------- CORE ----------------
+
+lpkg)
+    sudo bash "$BASE/lpkg.sh"
+    ;;
+
+lmpt)
+    sudo bash "$BASE/lmpt.sh"
+    ;;
+
+# ---------------- PACKAGE MANAGER ----------------
+
+pkg)
+    case "$sub" in
+
+    -ls)
+        ls "$BASE/mounted" 2>/dev/null || echo "No packages"
+        ;;
+
+    -get)
+        pkg="$arg"
+
+        if [ -e "$BASE/mounted/$pkg" ]; then
+            cp -r "$BASE/mounted/$pkg" "$HOME/" && echo "Moved to HOME"
+        else
+            echo "Package not found"
+        fi
+        ;;
+
+    -del)
+        pkg="$arg"
+
+        if [ -e "$BASE/mounted/$pkg" ]; then
+            sudo rm -rf "$BASE/mounted/$pkg"
+            echo "Deleted $pkg"
+        else
+            echo "Package not found"
+        fi
+        ;;
+
+    -mov)
+        sudo bash "$BASE/mpkg.sh"
+        ;;
+
+    *)
+        echo "pkg18 -ls | -get <pkg> | -del <pkg> | -mov"
+        ;;
+    esac
+    ;;
+
+# ---------------- QUICK MOUNT ----------------
+
+quickmount)
+    read -p "Package path -> " p
+    [ -f "$p" ] && sudo bash "$BASE/mount.sh" "$p" || echo "Invalid path"
+    ;;
+
+# ---------------- CONFIG SYSTEM ----------------
+
+configure)
+    if [ -z "$sub" ]; then
+        echo "configure -rm | -rs | nonint | help | -gui"
+        exit 0
+    fi
+
+    case "$sub" in
+
+    -rm)
+        echo "WARNING: This will uninstall Core v0.2.1"
+        read -p "(y/n) -> " unins
+
+        case "$unins" in
+        y)
+            sh_path=$(cat "$BASE/uninstall.txt")
+
+            if [ -n "$sh_path" ] && [ -f "$sh_path" ]; then
+                read -p "Press ENTER to confirm uninstall or CTRL+C to cancel..."
+                sudo bash "$sh_path"
+            else
+                echo "Uninstall script not found or invalid"
+            fi
+            ;;
+        n)
+            exit 0
+            ;;
+        *)
+            echo "Invalid option"
+            ;;
+        esac
+        ;;
+
+    -rs)
+        read -p "Uninstall script path -> " path
+        echo "$path" | sudo tee "$BASE/uninstall.txt" > /dev/null
+        echo "Updated uninstall path"
+        ;;
+
+    nonint)
+        sudo bash "$BASE/config-nonint.sh" "$arg"
+        ;;
+
+    help)
+        echo "lezzetli-mozaik18 Core v0.2.1"
+        echo
+        echo "configure -rm | -rs | nonint | -gui"
+        echo
+        echo "pkg -ls | -get | -del | -mov"
+        echo "lpkg | lmpt | quickmount"
+        ;;
+
+    -gui)
+        sudo bash "$BASE/config.sh"
+        ;;
+
+    *)
+        echo "unknown subcommand"
+        ;;
+    esac
+    ;;
+
+# ---------------- HELP ----------------
+
+help|*)
+    echo "lezzetli-mozaik18 Core v0.2.1"
+    echo
+
+    if [ -f "$BASE/version.txt" ]; then
+        cat "$BASE/version.txt"
+    else
+        echo "version missing"
+    fi
+
+    echo
+    echo "Commands:"
+    echo "lpkg | lmpt | pkg | quickmount | configure"
+    echo
+    echo "Use: <cmd> help for details"
+    ;;
+esac

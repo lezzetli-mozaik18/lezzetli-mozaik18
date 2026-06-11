@@ -1,0 +1,52 @@
+#!/bin/bash
+
+BASE="/opt/lezzetli-mozaik18"
+
+cmd="$1"
+sub="$2"
+arg="$3"
+
+case "$cmd" in
+
+lpkg)
+    sudo bash "$BASE/lpkg.sh"
+    ;;
+
+lmpt)
+    sudo bash "$BASE/lmpt.sh"
+    ;;
+
+pkg18)
+    case "$sub" in
+
+        -ls)
+            ls "$BASE/mounted" 2>/dev/null || echo "No packages"
+            ;;
+
+        -get)
+            pkg="$arg"
+            cp -r "$BASE/mounted/$pkg" "$HOME/" 2>/dev/null && echo "Moved to HOME"
+            ;;
+
+        -del)
+            pkg="$arg"
+            sudo rm -rf "$BASE/mounted/$pkg"
+            echo "Deleted $pkg"
+            ;;
+
+        *)
+            echo "pkg18 -ls | -get | -del"
+            ;;
+    esac
+    ;;
+
+quickmount)
+    read -p "Package path -> " p
+    sudo bash "$BASE/mount.sh" "$p"
+    ;;
+
+help|*)
+    echo "lpkg | lmpt | pkg18 | quickmount"
+    echo "other Core CLI tools: lconf | ldoc"
+    ;;
+esac

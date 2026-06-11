@@ -1,0 +1,97 @@
+#!/bin/bash
+
+BASE="/opt/lezzetli-mozaik18"
+
+echo "lezzetli18 Core diagnostics"
+echo "---------------------------"
+
+check() {
+    [ -e "$1" ] && echo "[OK] $2" || echo "[FAIL] $2"
+}
+
+# -------------------------
+# RECOVERY FUNCTION
+# -------------------------
+fatal() {
+    echo
+    echo "!! SYSTEM WARNING !!"
+    echo "Core version validation failed."
+    echo "This system relies on version locking to prevent cross-version execution errors."
+    echo
+    echo "Without correct version control, scripts may behave unpredictably."
+
+    read -p "Attempt auto-repair? (y/n) -> " fix
+
+    case "$fix" in
+        y)
+            echo "Starting repair sequence..."
+
+            sudo rm -f "$BASE/version.txt"
+            sudo touch "$BASE/version.txt"
+
+            echo "lezzetli-mozaik18 Core v0.2.1" | sudo tee "$BASE/version.txt" > /dev/null
+
+            echo "Repair complete."
+            echo "Version restored."
+
+            read -p " (exit/inspect) -> " pref
+            case "$pref" in
+                exit)
+                    exit 0
+                    ;;
+                inspect)
+                    echo "Re-running diagnostics is recommended using: ldoc"
+                    exit 0
+                    ;;
+            esac
+            ;;
+
+        n)
+            echo "System left in unstable state."
+            echo "Some features may fail."
+            exit 0
+            ;;
+    esac
+}
+
+check "$BASE/lpkg.sh" "lpkg.sh"
+check "$BASE/lmpt.sh" "lmpt.sh"
+check "$BASE/mount.sh" "mount.sh"
+check "$BASE/state/on.bash18" "state:on.bash18"
+check "$BASE/state/directory.bash18" "state:directory.bash18"
+check "$BASE/state/repository.bash18" "state:repository.bash18"
+check "$BASE/state/method.bash18" "state:method.bash18"
+check "$BASE/mounted" "mounted dir"
+check "$BASE/logs" "logs system"
+check "$BASE/err" "error system"
+
+echo
+echo "--------------------------------"
+
+# VERSION CHECK
+if [ -f "$BASE/version.txt" ]; then
+    chk=$(cat "$BASE/version.txt")
+
+    if [ "$chk" = "lezzetli-mozaik18 Core v0.2" ]; then
+        echo "[OK] version info available."
+        echo "Detected version: $chk"
+        echo "System integrity: OK"
+        echo "Core modules are consistent and ready."
+
+        echo
+        echo "Checkup complete."
+        read -p "Press Enter to exit inspection..." _
+        exit 0
+    else
+        echo "[FAIL] version mismatch detected."
+        echo "Expected: lezzetli-mozaik18 Core v0.2"
+        echo "Found: $chk"
+        fatal
+    fi
+else
+    echo "[FAIL] version.txt missing"
+    fatal
+fi
+
+
+

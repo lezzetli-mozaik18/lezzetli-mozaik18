@@ -1,0 +1,54 @@
+#!/bin/bash
+
+BASE="/opt/lezzetli-mozaik18/state"
+
+echo "lezzetli18 Config Tool (lconf)"
+echo "------------------------------"
+
+echo
+echo "Available config files:"
+echo "  1) on.bash18"
+echo "  2) directory.bash18"
+echo "  3) repository.bash18"
+echo "  4) method.bash18"
+echo "  5) open folder (state dir)"
+echo "  6) exit"
+echo
+
+read -p "Select -> " opt
+
+case "$opt" in
+
+1)
+    sudo nano "$BASE/on.bash18"
+    ;;
+
+2)
+    sudo nano "$BASE/directory.bash18"
+    ;;
+
+3)
+    sudo nano "$BASE/repository.bash18"
+    ;;
+
+4)
+    sudo nano "$BASE/method.bash18"
+    ;;
+
+5)
+    echo "State directory:"
+    ls -la "$BASE"
+    ;;
+
+6)
+    echo "Exiting..."
+    exit 0
+    ;;
+
+*)
+    echo "Invalid option."
+    exit 1
+    ;;
+esac
+
+exit 0
