@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=YourBash
 Comment=Manage CLI entries
-Exec=bash -c "sudo bash /opt/desktop.sh"
+Exec=bash /opt/desktop.sh
 Icon=utilities-terminal
 Terminal=true
 Type=Application
