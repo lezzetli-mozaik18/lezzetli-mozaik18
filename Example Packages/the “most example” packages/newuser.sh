@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "newuser.sh"
-read -p "This is a tool that replaces 'sudo adduser' with 'newuser', as sudo adduser is frequently used to create new users. Please press enter to continue installing or CTRL+C to terminate the process." null
+read -p "This is a tool that replaces 'adduser' with 'newuser', as sudo adduser is frequently used to create new users. Please press enter to continue installing or CTRL+C to terminate the process." null
 
 if [ -d "/usr/local/bin" ]; then
     # Create the binary file
@@ -10,7 +10,7 @@ if [ -d "/usr/local/bin" ]; then
     # Write the script content with a valid shebang securely
     sudo cat << 'EOF' > "/usr/local/bin/newuser"
 #!/bin/bash
-sudo adduser "$1"
+adduser "$1"
 EOF
 
     # Grant execution permissions to the run tool itself
