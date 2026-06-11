@@ -1,4 +1,4 @@
-## Manual-based market directory
+## Manual-based market directory.
 
 ## Hello...
 
