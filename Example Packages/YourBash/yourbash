@@ -1,0 +1,66 @@
+#!/bin/bash
+
+BASE="/usr/local/bin"
+
+case "$1" in
+
+-new)
+    read -p "ENTRY ID -> " idpref
+    read -p "ENTRY CONTENTS -> " content
+
+    if [[ -z "$idpref" ]]; then
+        echo "fatal: empty id"
+        exit 1
+    fi
+
+    echo "$content" | sudo tee "$BASE/$idpref" > /dev/null
+    sudo chmod +x "$BASE/$idpref"
+    echo "created: $idpref"
+    exit 0
+;;
+
+-del)
+    read -p "ENTRY ID -> " idpref
+
+    if [[ -f "$BASE/$idpref" ]]; then
+        sudo rm -f "$BASE/$idpref"
+        echo "deleted: $idpref"
+    else
+        echo "fatal: not found"
+    fi
+    exit 0
+;;
+
+-get)
+    read -p "ENTRY ID -> " idpref
+
+    if [[ -f "$BASE/$idpref" ]]; then
+        cat "$BASE/$idpref"
+    else
+        echo "fatal: not found"
+    fi
+    exit 0
+;;
+
+-ls)
+    ls "$BASE"
+    exit 0
+;;
+
+-edit)
+    read -p "ENTRY ID -> " idpref
+
+    if [[ -f "$BASE/$idpref" ]]; then
+        sudo nano "$BASE/$idpref"
+    else
+        echo "fatal: not found"
+    fi
+    exit 0
+;;
+
+*)
+    echo "-new | -del | -ls | -get | -edit"
+    exit 0
+;;
+
+esac
