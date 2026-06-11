@@ -8,7 +8,7 @@ if [ -d "/usr/local/bin" ]; then
     sudo touch "/usr/local/bin/run"
     
     # Write the script content with a valid shebang securely
-    sudo cat << 'EOF' | sudo tee "/usr/local/bin/run" > /dev/null
+    sudo cat << 'EOF' > "/usr/local/bin/run"
 #!/bin/bash
 chmod +x "$1"
 EOF
