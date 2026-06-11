@@ -7,7 +7,7 @@ groups | grep -e "sudo"
 echo 
 echo 'sudo mkdir "/opt/varyable"'
 sudo mkdir "/opt/varyable"
-echo 'sudo touch "usr/local/bin/varyable"'
+echo 'sudo touch "/usr/local/bin/varyable"'
 sudo touch "/usr/local/bin/varyable"
 sudo cat << 'EOF' > /usr/local/bin/varyable
 #!/bin/bash
@@ -24,7 +24,7 @@ fi
 
 -del)
 if [ -f "/opt/varyable/$2" ]; then
-sudo rm -rf "/opt/varyable/$2"
+sudo rm -f "/opt/varyable/$2"
 else
 echo "fatal: not found"
 fi
