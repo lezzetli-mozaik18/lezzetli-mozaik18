@@ -4,7 +4,7 @@ BASE="/usr/local/bin"
 
 while true; do
 
-CHOICE=$(whiptail --title "LM18 Control Center" \
+CHOICE=$(whiptail --title "lezzetli-mozaik18 YourBash" \
 --menu "Choose an action:" 15 60 5 \
 "1" "Create entry" \
 "2" "List entries" \
