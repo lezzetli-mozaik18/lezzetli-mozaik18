@@ -4,8 +4,12 @@ echo "install vDemo.sh"
 echo
 echo "  lcheck Demo"
 groups | grep -e "sudo"
-sudo touch "/usr/local/bin/lcheck"
-sudo chmod +x "/usr/local/bin/lcheck"
+echo
+
+# Ensure directory structure exists
+sudo mkdir -p "/usr/local/bin"
+
+# Write out the complete utility file directly
 sudo cat << 'EOF' > "/usr/local/bin/lcheck"
 #!/bin/bash
 
@@ -90,5 +94,9 @@ fi
 
 exit 0
 EOF
+
+# Grant binary execution permissions post-write
+sudo chmod +x "/usr/local/bin/lcheck"
+
 echo "done"
 exit 0
