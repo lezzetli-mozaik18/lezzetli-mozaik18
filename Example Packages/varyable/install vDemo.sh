@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "install.sh"
+echo "install vDemo.sh"
 echo
 echo "  varyable Demo"
 groups | grep -e "sudo"
