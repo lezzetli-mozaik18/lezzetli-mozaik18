@@ -1,0 +1,102 @@
+SNIPE ERROR CODE SYSTEM (DRAFT SPEC)
+
+This document defines the internal error code structure used in lm18 builds.
+
+It follows a simple hierarchy:
+
+    main topic -> subtopic -> type - absolute situation
+
+Represented as:
+
+    TST-AAA
+
+Where the first three parts are grouped, and the final absolute situation is separated with a single hyphen.
+
+Example format:
+
+    TST-AAA
+
+------------------------------------------------------------
+
+1. MAIN TOPIC (T)
+Defines the general category of the error.
+
+0 - no errors / stable
+1 - user interaction / input layer
+2 - compatibility / environment issues
+3 - portability / OS mismatch
+4 - application core failure
+5 - engine / execution logic failure
+6 - integration / external system failure
+7 - security / integrity violation
+8 - critical system failure
+9 - unknown / unclassified failure
+
+------------------------------------------------------------
+
+2. SUBTOPIC (S)
+Defines where inside the system the error originates.
+
+0 - general / unspecified
+1 - file system / data handling
+2 - parsing / format processing (e.g. CMAP, configs)
+3 - routing system (snipe_route)
+4 - target execution (snipe_target)
+5 - engine logic (engine.sh)
+6 - driver system (app-specific handlers)
+7 - CLI / user interface layer
+8 - permissions / privilege system
+9 - external dependency / OS interface
+
+------------------------------------------------------------
+
+3. TYPE (T)
+Defines severity and behavior of the error.
+
+0 - informational / no impact
+1 - warning (safe to continue)
+2 - degraded performance
+3 - partial failure
+4 - major failure
+5 - blocking failure
+6 - escalation required
+7 - unsafe state detected
+8 - critical instability
+9 - fatal failure
+
+------------------------------------------------------------
+
+4. ABSOLUTE SITUATION (AAA)
+Defines the exact scenario identifier.
+
+000 - default / unknown
+001 - file not found
+002 - invalid format (CMAP parsing error)
+003 - permission denied
+004 - process not killable
+005 - missing handler
+006 - engine mismatch
+007 - routing conflict
+008 - corrupted input stream
+009 - system override blocked
+
+------------------------------------------------------------
+
+FINAL CODE EXAMPLE
+
+    324-002
+
+Meaning:
+
+    3 → portability failure
+    2 → parsing layer
+    4 → major failure
+    002 → invalid CMAP format
+
+------------------------------------------------------------
+
+NOTES
+
+- This system is still in development.
+- Future updates may expand subtopics and absolute situations.
+- Codes are intended for internal diagnostics and routing decisions within Snipe.
