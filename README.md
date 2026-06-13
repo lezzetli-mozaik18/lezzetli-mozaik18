@@ -1,4 +1,4 @@
-## Manual-based market directory.
+## Welcome to my software marketplace. (I plan on a GitHub Pages UI)
 
 ## Hello...
 
