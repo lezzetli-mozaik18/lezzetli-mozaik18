@@ -83,6 +83,7 @@ Defines the exact scenario identifier.
 011 - unknown
 012 - bug
 013 - missing descriptor
+014 - no input
 
 ------------------------------------------------------------
 
