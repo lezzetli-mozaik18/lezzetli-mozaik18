@@ -88,6 +88,7 @@ Defines the exact scenario identifier.
 012 - bug
 013 - missing descriptor
 014 - no input
+015 - directory not found
 
 ------------------------------------------------------------
 
