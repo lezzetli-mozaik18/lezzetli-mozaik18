@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# published under GitHub account lezzetli-mozaik18
+# a simple protocol to handle inputs & routing.
+# please read manual.md
+
+a="$(cd "$(dirname "$0")" && pwd)"
+
+	if [ -z "$1" ]; then
+	
+		printf "EC-110-014"
+	else
+	
+		if [ -d "$a" ]; then
+		
+			if [ -d "$a/hdp18" ]; then
+			
+				if [ -f "$a/hdp18/$1" ]; then
+				
+					exec "$a/hdp18/$1" "${@:2}"
+				else
+				
+					printf "EC-54X-001"
+				fi
+			else
+			
+				printf "EC-21X-015"
+			fi
+		else
+		
+			printf "EC-21X-015"
+		fi
+	fi
