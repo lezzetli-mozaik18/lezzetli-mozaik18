@@ -31,6 +31,7 @@ Defines the general category of the error.
 7 - security / integrity violation
 8 - critical system failure
 9 - unknown / unclassified failure
+X - other
 
 ------------------------------------------------------------
 
@@ -47,6 +48,7 @@ Defines where inside the system the error originates.
 7 - CLI / user interface layer
 8 - permissions / privilege system
 9 - external dependency / OS interface
+X - other
 
 ------------------------------------------------------------
 
@@ -63,6 +65,7 @@ Defines severity and behavior of the error.
 7 - unsafe state detected
 8 - critical instability
 9 - fatal failure
+X - type changes depending on external factors
 
 ------------------------------------------------------------
 
