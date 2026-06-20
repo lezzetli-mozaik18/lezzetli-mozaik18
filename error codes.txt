@@ -79,6 +79,10 @@ Defines the exact scenario identifier.
 007 - routing conflict
 008 - corrupted input stream
 009 - system override blocked
+010 - variable not usable
+011 - unknown
+012 - bug
+013 - missing descriptor
 
 ------------------------------------------------------------
 
