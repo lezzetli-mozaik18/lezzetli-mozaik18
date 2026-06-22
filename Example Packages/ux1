@@ -1,0 +1,28 @@
+#!/bin/bash
+
+export PS4=""
+export SHELLOPTIS
+set +x
+
+# Colors
+c_reset="\e[0m"
+
+c_red="\e[31m"
+c_green="\e[32m"
+c_blue="\e[34m"
+c_yellow="\e[33m"
+c_cyan="\e[36m"
+
+prompt() {
+    printf "[  %b%s%b  @  %b%s%b  @  %b%s%b  ] ~> " \
+    "$c_red" "$(whoami)" "$c_reset" \
+    "$c_blue" "$(hostname)" "$c_reset" \
+    "$c_green" "$(pwd)" "$c_reset"
+}
+
+while true; do
+    prompt
+    read -r cmd
+
+    [ -n "$cmd" ] && $cmd
+done
