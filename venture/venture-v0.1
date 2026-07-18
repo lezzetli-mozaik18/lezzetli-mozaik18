@@ -1,0 +1,64 @@
+#!/bin/bash
+
+ls -ah "$(pwd)"
+conf="-ah"
+
+loop() {
+read -p "~> " pref
+case "$pref" in
+	^lr)
+		conf="-lrah"
+	;;
+
+	^l)
+		conf="-lah"
+	;;
+
+	^r)
+		conf="-rah"
+	;;
+
+	^e)
+		exit
+	;;
+
+	^ls)
+		ls "$conf"
+	;;
+
+	^j)
+		read -p "~? > " pref
+		if [ -d "$pref" ]; then
+		cd "$pref"
+		else
+		echo "Not found"
+		fi
+	;;
+
+	".."|"^up")
+		cd ..
+	;;
+
+	*)
+		target="$(ls | grep -m 1 $pref 2>/dev/null)"
+		if [ -z "$target" ]; then
+		echo "Not found"
+		fi
+		if [ -d "$(pwd)/$target" ]; then
+		cd "$(pwd)/$target"
+		elif [ -f "$(pwd)/$target" ]; then
+		nano "$(pwd)/$target"
+		else
+		echo "Not found"
+		fi
+	;;
+
+esac
+echo
+ls "$conf"
+echo
+loop
+}
+
+loop
+
