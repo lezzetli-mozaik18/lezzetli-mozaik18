@@ -1,8 +1,6 @@
-## Most recent message: my work is going way slower than I expected... and I am failing to keep every scriptwork updated to each other. Maybe it's a good idea learn a bit more before writing...
+## Most recent message: check out venture v0.4!
 
 ## Welcome to my software marketplace. (I plan on a GitHub Pages UI)
-
-## Hello...
 
 - I am guessing you stumbled upon here by accident. If you wonder why I do so, is because this is an account not meant to be visited constantly. As one of my hobbies, I just like to embed my tiny software here to access it easily. 
 
